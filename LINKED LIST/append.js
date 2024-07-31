@@ -52,3 +52,4 @@ list.append(40)
 list.append(80)
 list.print()
 
+//o(n)
