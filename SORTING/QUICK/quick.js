@@ -1,10 +1,13 @@
-function quickSort(arr){
+
+function quicksort(arr){
     if(arr.length<2){
         return arr
     }
+
     let pivot = arr[arr.length-1]
     let left = []
     let right = []
+
     for(let i = 0 ;i<arr.length-1;i++){
         if(arr[i]<pivot){
             left.push(arr[i])
@@ -12,8 +15,10 @@ function quickSort(arr){
             right.push(arr[i])
         }
     }
-    return [...quickSort(left),pivot,...quickSort(right)]
+    return [...quicksort(left),pivot,...quicksort(right)]
 }
 
-const arr = [10,-9,4,55,-2,8]
-console.log(quickSort(arr));
+
+
+const arr = [550,-9,6,8,-1,0,52]
+console.log(quicksort(arr));
