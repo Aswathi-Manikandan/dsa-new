@@ -15,50 +15,48 @@ class LinkedListStack{
         const NewNode = new Node(element)
         NewNode.next = this.top
         this.top = NewNode
-        this.count++
+        this.count++    
     }
 
     pop(){
         if(this.isEmpty()){
-            return "Underflow"
+            return "No elements to pop"
         }
-        const poppedNode = this.top
+        const PoppedNode = this.top
         this.top = this.top.next
         this.count--
-        return poppedNode.value
-    }
-
-    peek(){
-        if(this.isEmpty()){
-            return "stack is empty"
-        }
-        return this.top.value
+        return PoppedNode.value
     }
 
     isEmpty(){
         return this.top === null
     }
 
-    size(){
-        return this.count
+    peek(){
+        if(this.isEmpty()){
+            return "underflow"
+        }
+        return this.top.value
     }
 
     print(){
         let current = this.top
         let result = ' '
         while(current){
-        result += current.value + ' '
-        current = current.next
+            result += current.value + ' '
+            current = current.next
+        }
+        return result.trim()
     }
-    return result.trim()
-}
+   
 }
 
-const link = new LinkedListStack()
-link.push(90)
-link.push(50)
+
+const link = new LinkedListStack
+link.push(99)
+link.push(88)
+link.push(56)
 link.push(78)
-link.push(67)
 console.log(link.print());
 console.log(link.pop());
 console.log(link.print());
