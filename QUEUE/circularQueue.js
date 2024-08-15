@@ -1,43 +1,43 @@
-class circularQueue {
-    constructor(capacity) {
-        this.items = new Array(capacity);
-        this.capacity = capacity;
-        this.currentLength = 0;
-        this.rear = -1;
-        this.front = -1;
+class circularQueue{
+    constructor(capacity){
+        this.items = new Array(capacity)
+        this.capacity=capacity
+        this.currentLength = 0
+        this.front = -1
+        this.rear = -1
     }
 
-    isFull() {
-        return this.currentLength === this.capacity;
+    isFull(){
+        return this.currentLength === this.capacity
     }
 
-    isEmpty() {
-        return this.currentLength === 0;
+    isEmpty(){
+        return this.currentLength === 0
     }
 
-    enqueue(element) {
-        if (!this.isFull()) {
-            this.rear = (this.rear + 1) % this.capacity;
-            this.items[this.rear] = element;
-            this.currentLength += 1;
-            if (this.front === -1) {
-                this.front = this.rear;
+    enqueue(element){
+        if(!this.isFull()){
+            this.rear = (this.rear+1)%this.capacity
+            this.items[this.rear] = element
+            this.currentLength+=1
+            if(this.front===-1){
+                this.front= this.rear
             }
         }
     }
 
-    dequeue() {
-        if (this.isEmpty()) {
-            return null;
+    dequeue(){
+        if(this.isEmpty()){
+            return null
         }
-        const item = this.items[this.front];
-        this.items[this.front] = null;
+        const item = this.items[this.front]
+        this.items[this.front]=null
         this.front = (this.front + 1) % this.capacity;
         this.currentLength -= 1;
-        if (this.isEmpty()) {
-            this.front = -1;
-            this.rear = -1;
-        }
+            if (this.isEmpty()) {
+                this.front = -1;
+                this.rear = -1;
+                }
         return item;
     }
 
@@ -48,6 +48,7 @@ class circularQueue {
         return null;
     }
 
+    
     print() {
         if (this.isEmpty()) {
             console.log('Queue is empty');
@@ -62,9 +63,9 @@ class circularQueue {
             console.log(str);
         }
     }
+    
 }
 
-// Example usage:
 const queue = new circularQueue(5);
 console.log(queue.isEmpty()); // Output: true
 queue.enqueue(10);
