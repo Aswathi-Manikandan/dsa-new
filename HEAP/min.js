@@ -29,15 +29,7 @@ class MinHeap{
             index = this.getParentIndex(index);
         }
     }
-    extractMin() {
-        if (this.heap.length === 0) return null;
-    
-        const min = this.heap[0];
-        this.heap[0] = this.heap.pop();
-        this.heapifyDown();
-    
-        return min;
-    }
+
     heapifyDown() {
         let index = 0;
     
@@ -56,7 +48,18 @@ class MinHeap{
             index = smallerChildIndex;
         }
     }
-                        
+       
+    
+    extractMin() {
+        if (this.heap.length === 0) return null;
+    
+        const min = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this.heapifyDown();
+    
+        return min;
+    }
+                   
 }
 const minHeap = new MinHeap();
 minHeap.insert(10);
