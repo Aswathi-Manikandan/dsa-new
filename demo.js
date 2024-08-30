@@ -1,36 +1,95 @@
-function heapSort(array){
-    let n = array.length
-
-    for(let i=Math.floor(n/2)-1;i>=0;i--){
-        heapify(array,n,i)
-    }
-
-    for(let i = n-1;i>0;i--){
-        [array[0],array[i]] = [array[i],array[0]]
-        heapify(array,i,0)
+class Node{
+    constructor(value){
+        this.value = value
+        this.left = null
+        this.right = null
     }
 }
-    function heapify(array,n,i){
-        let largest = i
-        let left = 2*i+1
-        let right = 2*i+2
 
-        if(left<n && array[left]>array[largest]){
-            largest = left
+class BinarySearchTree{
+    constructor(){
+        this.root = null
+    }
+
+    isEmpty(){
+        return this.root === null
+    }
+
+    insert(value){
+        const newNode = new Node(value)
+        if(this.isEmpty()){
+            this.root = newNode
+        }else{
+            this.insertNode(this.root,newNode)
         }
-        if(right<n && array[right]>array[largest]){
-            largest = right
+    }
+
+    insertNode(root,newNode){
+        if(newNode.value<root.value){
+            if(root.left === null){
+                root.left = newNode
+            }else {
+                this.insertNode(root.left, newNode);
+            }
+        } else {
+            if (root.right === null) {
+                root.right = newNode;
+            } else {
+                this.insertNode(root.right, newNode);
+            }
+        }
         }
 
-        if(largest!==i){
-            [array[i],array[largest]]=[array[largest],array[i]]
-            heapify(array,n,largest)
+        search(root,value){
+            if(root=null){
+                return false
+            }
+            if(root.value === value){
+                return true
+            }
+            else if (value < root.value) {
+                return this.search(root.left, value);
+            } else {
+                return this.search(root.right, value);
+            }
         }
-       
+
+        bfs(){
+            let result = []
+            let queue = []
+
+            if(this.root===null){
+                return result
+            }
+            queue.push(this.root)
+
+
+            while(queue.length>0){
+                let current = queue.shift()
+                result.push(current.value)
+
+                if(current.left!==null){
+                    queue.push(current.left)
+                }
+                if(current.right!==null){
+                    queue.push(current.right)
+                }
+            }
+            return result
+        }
     }
 
 
-// Example usage:
-let array = [12, 11, 13, 5, 6, 7];
-heapSort(array);
-console.log("Sorted array:", array);
+
+    
+// Example usage
+const bst = new BinarySearchTree();
+bst.insert(10);
+bst.insert(6);
+bst.insert(15);
+bst.insert(3);
+bst.insert(8);
+bst.insert(20);
+
+console.log(bst.bfs()); // Output: [10, 6, 15, 3, 8, 20]
+
