@@ -12,14 +12,10 @@ class Graph {
 
     // Add an edge between two vertices
     addEdge(vertex1, vertex2) {
-        if (!this.adjacencyList[vertex1]) {
-            this.addVertex(vertex1);
-        }
-        if (!this.adjacencyList[vertex2]) {
-            this.addVertex(vertex2);
-        }
+        this.addVertex(vertex1);
+        this.addVertex(vertex2);
         this.adjacencyList[vertex1].push(vertex2);
-        this.adjacencyList[vertex2].push(vertex1); // For undirected graph, add the reverse edge as well
+        this.adjacencyList[vertex2].push(vertex1); // For undirected graph
     }
 
     // Remove an edge between two vertices
@@ -34,7 +30,7 @@ class Graph {
 
     // Remove a vertex and its associated edges
     removeVertex(vertex) {
-        while (this.adjacencyList[vertex]) {
+        while (this.adjacencyList[vertex].length) {
             const adjacentVertex = this.adjacencyList[vertex].pop();
             this.removeEdge(vertex, adjacentVertex);
         }
