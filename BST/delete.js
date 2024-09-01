@@ -40,55 +40,48 @@ class BinarySearchTree {
         }
     }
 
-    delete(value) {
-        this.root = this.deleteNode(this.root, value);
+   delete(value){
+        this.root = this.deleteNode(this.root,value)
+   }
+
+   deleteNode(root,value){
+    if(root === null){
+        return root
     }
 
-    deleteNode(root, value) {
-        if (root === null) {
-            return root;
+    if(value <root.value){
+        root.left = this.deleteNode(root.left,value)
+    }else if(value>root.value){
+        root.right = this.deleteNode(root.right,value)
+    }else{
+        if(root.left === null){
+            return root.right
+        }else if(root.right === null){
+            return root.left
         }
+        const minRight = this.findMin(root.right);
+root.value = minRight.value;
+root.right = this.deleteNode(root.right, minRight.value);
 
-        if (value < root.value) {
-            root.left = this.deleteNode(root.left, value);
-        } else if (value > root.value) {
-            root.right = this.deleteNode(root.right, value);
-        } else {
-            // Node to be deleted found
-            if (root.left === null) {
-                return root.right;
-            } else if (root.right === null) {
-                return root.left;
-            }
-
-            // Node with two children: Get the inorder successor (smallest in the right subtree)
-            const minRight = this.findMin(root.right);
-            root.value = minRight.value;
-
-            // Delete the inorder successor
-            root.right = this.deleteNode(root.right, minRight.value);
-        }
-
-        return root;
     }
+    return root
+   }
 
-    findMin(root) {
-        while (root.left !== null) {
-            root = root.left;
-        }
-        return root;
+   findMin(root) {
+    while (root.left !== null) {
+        root = root.left;
     }
-
-    // Method to print the tree (inorder traversal)
-    inorder(root = this.root) {
-        if (root !== null) {
-            this.inorder(root.left);
-            console.log(root.value);
-            this.inorder(root.right);
-        }
+    return root;
+}
+inorder(root = this.root) {
+    if (root !== null) {
+        this.inorder(root.left);
+        console.log(root.value);
+        this.inorder(root.right);
     }
 }
 
+}
 // Example usage:
 const bst = new BinarySearchTree();
 bst.insert(50);
