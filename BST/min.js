@@ -44,7 +44,7 @@ class BinarySearchTree {
         while (root.left !== null) {
             root = root.left;
         }
-        return root.value  // Return the value of the minimum node
+        return root.value  
     }
 }
 
