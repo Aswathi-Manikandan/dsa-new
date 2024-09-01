@@ -11,13 +11,10 @@ class BinarySearchTree {
         this.root = null;
     }
 
-    isEmpty() {
-        return this.root === null;
-    }
-
+    // Insert a node in the BST
     insert(value) {
         const newNode = new Node(value);
-        if (this.isEmpty()) {
+        if (this.root === null) {
             this.root = newNode;
         } else {
             this.insertNode(this.root, newNode);
@@ -40,7 +37,7 @@ class BinarySearchTree {
         }
     }
 
-    // BFS implementation
+    // BFS traversal
     bfs() {
         const result = [];
         const queue = [];
@@ -52,17 +49,15 @@ class BinarySearchTree {
         queue.push(this.root);
 
         while (queue.length > 0) {
-            const currentNode = queue.shift(); // Remove the first node from the queue
-            result.push(currentNode.value); // Process the current node
+            const current = queue.shift(); // Dequeue the front node
+            result.push(current.value); // Process the current node
 
-            // Add the left child to the queue if it exists
-            if (currentNode.left !== null) {
-                queue.push(currentNode.left);
+            if (current.left !== null) {
+                queue.push(current.left); // Enqueue left child
             }
 
-            // Add the right child to the queue if it exists
-            if (currentNode.right !== null) {
-                queue.push(currentNode.right);
+            if (current.right !== null) {
+                queue.push(current.right); // Enqueue right child
             }
         }
 
@@ -70,7 +65,7 @@ class BinarySearchTree {
     }
 }
 
-// Example usage
+// Example usage:
 const bst = new BinarySearchTree();
 bst.insert(10);
 bst.insert(6);
@@ -79,4 +74,4 @@ bst.insert(3);
 bst.insert(8);
 bst.insert(20);
 
-console.log(bst.bfs()); // Output: [10, 6, 15, 3, 8, 20]
+console.log(bst.bfs()); // Output: [ 10, 6, 15, 3, 8, 20 ]
