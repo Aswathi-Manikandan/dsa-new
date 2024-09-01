@@ -1,95 +1,51 @@
-class Node{
-    constructor(value){
-        this.value = value
-        this.left = null
-        this.right = null
+class Graph{
+    constructor(){
+        this.adjacencyList = {}
+    }
+
+    addVertex(vertex){
+        if(!this.adjacencyList[vertex]){
+            this.adjacencyList[vertex] = []
+        }
+    }
+
+    addEdge(vertex1,vertex2){
+        this.addVertex(vertex1)
+        this.addVertex(vertex2)
+        this.adjacencyList[vertex1].push(vertex2)
+        this.adjacencyList[vertex2].push(vertex1)
+
+    }
+
+    removeEdge(vertex1,vertex2){
+        this.adjacencyList[vertex1] = this.adjacencyList[vertex1].filter(vertex=>vertex!==vertex2)
+        this.adjacencyList[vertex2] = this.adjacencyList[vertex2].filter(vertex=>vertex!==vertex1)
+    }
+
+    removeVertex(vertex){
+        while(this.adjacencyList[vertex].lenth){
+            const adjacentVertex = this.adjacencyList[vertex].pop()
+            this.removeEdge(vertex,adjacentVertex)
+        }
+        delete this.adjacencyList[vertex]
+    }
+
+    display(){
+        for(let vertex in this.adjacencyList){
+            console.log(vertex +'->'+ this.adjacencyList[vertex].join(', '));
+            
+        }
     }
 }
 
-class BinarySearchTree{
-    constructor(){
-        this.root = null
-    }
+const graph = new Graph()
+graph.addVertex("A")
+graph.addVertex("B")
+graph.addVertex("C")
+graph.addVertex("D")
 
-    isEmpty(){
-        return this.root === null
-    }
+graph.addEdge('A', 'B');
+graph.addEdge('A', 'C');
+graph.addEdge('B', 'D');
 
-    insert(value){
-        const newNode = new Node(value)
-        if(this.isEmpty()){
-            this.root = newNode
-        }else{
-            this.insertNode(this.root,newNode)
-        }
-    }
-
-    insertNode(root,newNode){
-        if(newNode.value<root.value){
-            if(root.left === null){
-                root.left = newNode
-            }else {
-                this.insertNode(root.left, newNode);
-            }
-        } else {
-            if (root.right === null) {
-                root.right = newNode;
-            } else {
-                this.insertNode(root.right, newNode);
-            }
-        }
-        }
-
-        search(root,value){
-            if(root=null){
-                return false
-            }
-            if(root.value === value){
-                return true
-            }
-            else if (value < root.value) {
-                return this.search(root.left, value);
-            } else {
-                return this.search(root.right, value);
-            }
-        }
-
-        bfs(){
-            let result = []
-            let queue = []
-
-            if(this.root===null){
-                return result
-            }
-            queue.push(this.root)
-
-
-            while(queue.length>0){
-                let current = queue.shift()
-                result.push(current.value)
-
-                if(current.left!==null){
-                    queue.push(current.left)
-                }
-                if(current.right!==null){
-                    queue.push(current.right)
-                }
-            }
-            return result
-        }
-    }
-
-
-
-    
-// Example usage
-const bst = new BinarySearchTree();
-bst.insert(10);
-bst.insert(6);
-bst.insert(15);
-bst.insert(3);
-bst.insert(8);
-bst.insert(20);
-
-console.log(bst.bfs()); // Output: [10, 6, 15, 3, 8, 20]
-
+graph.display()
