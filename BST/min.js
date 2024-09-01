@@ -40,4 +40,19 @@ class BinarySearchTree {
         }
     }
 
+    findMin(root = this.root) {
+        while (root.left !== null) {
+            root = root.left;
+        }
+        return root.value  // Return the value of the minimum node
+    }
 }
+
+// Example usage
+const bin = new BinarySearchTree();
+bin.insert(50);
+bin.insert(52);
+bin.insert(10);
+bin.insert(45);
+
+console.log(bin.findMin()); // Output: 10

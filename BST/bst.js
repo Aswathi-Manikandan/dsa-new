@@ -54,8 +54,7 @@ class BinarySearchTree {
     }
 }
 
-const bst = new BinarySearchTre-
-e();
+const bst = new BinarySearchTree();
 console.log(bst.isEmpty()); // Output: true
 bst.insert(10);
 bst.insert(5);
